@@ -64,3 +64,6 @@
 		</div>
 	</div>
 </div>
+<?php $attrs = array('id' => 'ajax-form'); $this->load->helper('form'); ?>
+<?= form_open('', $attrs) ?>
+</form>
