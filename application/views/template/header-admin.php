@@ -12,6 +12,7 @@
 	<script src='<?=base_url()?>public/js/jquery-1.11.0.min.js'></script>
 	<script src='<?=base_url()?>public/js/bootstrap.min.js'></script>
 	<script src='<?=base_url()?>public/js/admin.js'></script>
+	<script src='<?=base_url()?>public/js/eliminar.js'></script>
 	<script src='<?=base_url()?>public/js/confirmar.js'></script>
 </head>
 <body>
