@@ -1,6 +1,16 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Respuesta{}
+/*!
+@class Usuarios 
+@brief Controlador de usuarios.
+
+Este clase funciona como controlador de usuarios, con métodos
+para añadir, modificar, eliminar y listar usuarios de diversos roles
+registrados en la aplicación.
+
+@author Kevin Perez
+@date Mayo 2014
+*/
 class Usuarios extends CI_Controller {
 	
 	// Filtros válidos para este controller
@@ -51,30 +61,6 @@ class Usuarios extends CI_Controller {
 
 		$data['titulo'] = 'Administrar usuarios';
 		load_admin_template($this,'admin/usuarios/index', $data);
-	}
-
-	public function obtener_tabla() {
-		$r = new Respuesta();
-
-		$r->cols = new Respuesta();
-
-		$r->cols->id = new Respuesta();
-		$r->cols->id->index = 1;
-		$r->cols->id->type = 'number';
-
-		$r->cols->nombre = new Respuesta();
-		$r->cols->nombre->index = 2;
-		$r->cols->nombre->type = 'string';
-
-		$us = Usuario::all();
-		foreach ($us as $u) {
-			$ud = new Respuesta();
-			$ud->id = $u->id;
-			$ud->nombre = $u->nombre_usuario;
-			$r->rows[] = $ud;
-		}
-
-		echo json_encode($r);
 	}
 
 	public function nuevo() {
@@ -148,21 +134,55 @@ class Usuarios extends CI_Controller {
 		}	
 	}
 
+	/*!
+	@brief Elimina un usuario de la base de datos.
+	@param int id ID del usuario que se desea eliminar.
+	*/
 	public function eliminar($id) {
 		try {
 			$u = Usuario::find_by_id($id);
 			if ($u != null) {
-				// Borrando...
+				# Borrando...
 				$u->delete();
-				flash_exito($this, TRUE, "Usuario \"$u->nombre_usuario\" eliminado.");
+				# Éxito al borrar. Notificando.
+				$notificacion = "Usuario \"$u->nombre_usuario\" eliminado.";
+				if ($this->input->is_ajax_request()) {
+					$respuesta = new Respuesta();
+					$respuesta->exito = TRUE;
+					$respuesta->notificacion = $notificacion;
+					echo json_encode($respuesta);
+				} else {
+					flash_exito($this, TRUE, $notificacion);
+					redirigir_pagina($this, 'usuarios', 'admin/usuarios');
+				}
 			} else {
-				// Usuario no existe
-				flash_exito($this, FALSE, "El usuario especificado no existe.");
+				# Usuario no existe. Notificando.
+				$notificacion = "El usuario especificado no existe.";
+				if ($this->input->is_ajax_request()) {
+					$respuesta = new Respuesta();
+					$respuesta->exito = FALSE;
+					$respuesta->notificacion = $notificacion;
+					$this->output->set_status_header(404);
+					echo json_encode($respuesta);
+				} else {
+					flash_exito($this, FALSE, $notificacion);
+					redirigir_pagina($this, 'usuarios', 'admin/usuarios');
+				}
 			}
 		} catch (Exception $e) {
-			flash_accion_error($this, "Error al tratar de eliminar el usuario con id = $id. ".$e->getMessage());
+			# Excepción. Notificando.
+			$notificacion = "Error al tratar de eliminar el usuario con id = $id. ".$e->getMessage();
+			if ($this->input->is_ajax_request()) {
+				$respuesta = new Respuesta();
+				$respuesta->exito = FALSE;
+				$respuesta->notificacion = $notificacion;
+				$this->output->set_status_header(500);
+				echo json_encode($respuesta);
+			} else {
+				flash_accion_error($this, $notificacion);
+				redirigir_pagina($this, 'usuarios', 'admin/usuarios');
+			}
 		}
-		redirigir_pagina($this, 'usuarios', 'admin/usuarios');
 	}
 
 	private function do_activar($id, $estado) {
