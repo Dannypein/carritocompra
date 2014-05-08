@@ -7,13 +7,15 @@ function basepath() {
 	return $basepath;
 }
 
+class Respuesta{}
 
-/*
+/*!
+ | @brief Muestra una variante de una compra según su tipo de variante.
+ | @param Compra La compra cuya variante intenta mostrarse.
+ | @return string Una cadena de HTML que representa la variante.
  |
  | Esta función devuelve una cadena de HTML que se puede usar para 
  | representar la variante seleccionada en una compra específica.
- | Requiere como parámetro el objeto compra cuya variante intenta 
- | mostrarse.
  |
  */
 function mostrarVariante($compra) {
