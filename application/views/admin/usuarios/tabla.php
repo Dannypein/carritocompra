@@ -49,10 +49,10 @@
 				</td>
 				<td>
 					<div class='btn-group'>
-						<a class='btn btn-default btn-sm' href='<?=base_url()?>admin/usuarios/modificar/<?=$usuario->id?>'>
+						<a class='btn btn-default btn-sm editar' href='<?=base_url()?>admin/usuarios/modificar/<?=$usuario->id?>'>
 							<i class='glyphicon glyphicon-edit' title='Editar "<?= $usuario->nombre_usuario ?>"'></i>
 						</a>
-						<a class='btn btn-danger btn-sm confirmar' href='<?=base_url()?>admin/usuarios/eliminar/<?=$usuario->id?>' data-confirmar='¿Confirma que desea eliminar el usuario "<?= $usuario->nombre_usuario ?>"?'>
+						<a class='btn btn-danger btn-sm confirmar eliminar' href='<?=base_url()?>admin/usuarios/eliminar/<?=$usuario->id?>' data-confirmar='¿Confirma que desea eliminar el usuario "<?= $usuario->nombre_usuario ?>"?'>
 							<i class='glyphicon glyphicon-remove' title='Eliminar "<?= $usuario->nombre_usuario ?>"'></i>
 						</a>
 					</div>
