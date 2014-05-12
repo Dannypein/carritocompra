@@ -109,7 +109,6 @@ $autoload['language'] = array();
 */
 
 $autoload['model'] = array();
-
 $autoload['sparks'] = array('php-activerecord/0.0.2');
 
 /* End of file autoload.php */
