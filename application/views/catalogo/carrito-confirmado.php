@@ -12,7 +12,10 @@
 	<div class='col-xs-12'>
 		<!-- <div class='well'> -->
 			<a class='btn btn-primary' href='<?=link_pagina($this, 'catalogo', 'catalogo')?>'>Volver al catálogo</a> 
+<<<<<<< HEAD
 			<a class='btn btn-default' target="_blank" href='//pdfcrowd.com/url_to_pdf'>Imprimir</a>
+=======
+>>>>>>> master
 		<!-- </div> -->
 	</div>
 </div>	
